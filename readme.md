@@ -1,515 +1,392 @@
-# AI Support Ticketing Agent (LangGraph)
+# 🤖 AI-Powered IT Support Agent
 
-## Overview
+An intelligent **IT Helpdesk Automation Agent** built using **LangGraph**, **Large Language Models (LLMs)**, and **Pydantic Structured Outputs**.
 
-This project is an AI-powered Support Ticketing Agent built using LangGraph. The goal of the system is to assist users with application-related issues, installation problems, access issues, configuration errors, and general troubleshooting requests.
-
-Instead of creating a support ticket for every request, the agent first analyzes the issue and determines whether the user can resolve the problem independently or whether administrator intervention is required.
-
-The system aims to reduce unnecessary ticket creation, improve response times, and provide users with immediate assistance whenever possible.
+The agent automates the complete IT support lifecycle—from understanding user issues to generating resolutions or creating support tickets—while reducing repetitive work for IT teams.
 
 ---
 
-# Problem Statement
+# 📌 Problem Statement
 
-In many organizations, users raise support tickets for issues that could be resolved through simple troubleshooting steps. This increases the workload on support teams and delays resolution for critical issues.
+Modern IT support teams face several operational challenges:
 
-This agent addresses that problem by:
+- High volume of repetitive support tickets
+- Manual ticket classification and routing
+- Long Mean Time To Resolution (MTTR)
+- Knowledge scattered across documentation and senior engineers
+- Repeated troubleshooting for identical issues
+- Delayed responses affecting employee productivity
 
-1. Understanding the user's issue.
-2. Classifying the issue type.
-3. Determining whether the issue is:
-
-   * User Solvable
-   * Requires Administrator Support
-   * Requires More Information
-4. Guiding the user with simple resolution steps when possible.
-5. Creating a support ticket only when necessary.
+These challenges increase operational costs and reduce IT team efficiency.
 
 ---
 
-# Technology Stack
+# 💡 Solution
 
-* Python
-* LangGraph
-* LangChain
-* Pydantic
-* OpenAI / Compatible LLM
-* Future Integrations:
+The AI-Powered IT Support Agent automates IT support using LangGraph workflows and LLM reasoning.
 
-  * Jira
-  * ServiceNow
-  * Email Notifications
-  * Internal Knowledge Base
-  * Vector Database
+The agent can:
+
+- Understand user issues using Natural Language Processing
+- Analyze and classify incidents
+- Search previously solved issues from a Knowledge Base
+- Ask clarification questions when required
+- Generate troubleshooting steps automatically
+- Create support tickets for admin-required issues
+- Send email notifications to the IT Admin team
+- Continuously improve by storing solved issues
 
 ---
 
-# Workflow
+# 🚀 Features
 
-The workflow follows a decision-based support process.
+## Intelligent Issue Analysis
 
-```text
-START
-   │
-   ▼
-Analyse Issue
-   │
-   ▼
-Classify Issue
-   │
-   ├── USER_SOLVABLE
-   │         │
-   │         ▼
-   │   Generate Resolution
-   │         │
-   │         ▼
-   │    Final Report
-   │
-   ├── ADMIN_REQUIRED
-   │         │
-   │         ▼
-   │   Generate Ticket
-   │         │
-   │         ▼
-   │    Final Report
-   │
-   └── NEED_MORE_INFO
-             │
-             ▼
-      Ask Clarification
-             │
-             ▼
-       Analyse Again
+- Extracts issue summary
+- Detects affected system
+- Identifies issue category
+- Determines severity
+- Calculates business impact
+
+---
+
+## Intelligent Classification
+
+Issues are classified into:
+
+- USER_SOLVABLE
+- ADMIN_REQUIRED
+- NEED_MORE_INFO
+
+---
+
+## Human-in-the-Loop
+
+When insufficient information is available, the agent:
+
+- Generates clarification questions
+- Waits for user responses
+- Re-analyzes the issue
+
+---
+
+## Knowledge Base
+
+The agent maintains a local Knowledge Base (`knowledge.json`).
+
+Before calling the LLM, it searches for existing solutions.
+
+Benefits:
+
+- Faster responses
+- Lower LLM cost
+- Consistent troubleshooting
+- Continuous learning
+
+---
+
+## Automatic Resolution
+
+For user-solvable issues, the agent generates:
+
+- Step-by-step troubleshooting
+- Estimated resolution time
+- Knowledge source
+
+---
+
+## Automatic Ticket Generation
+
+If admin intervention is required, the agent automatically generates:
+
+- Ticket ID
+- Ticket Title
+- Description
+- Priority
+- Category
+- Status
+
+---
+
+## Email Notification
+
+Generated tickets are automatically emailed to the IT Admin Team using SMTP.
+
+The reporting user is also CC'd.
+
+---
+
+# 🏗 Architecture
+
 ```
-
----
-
-# State Design
-
-The application uses a centralized LangGraph state called `SupportAgentState`.
-
-## User Information
-
-Stores information provided by the user.
-
-```python
-user_name
-user_email
-user_issue
-```
-
----
-
-## Issue Understanding
-
-Stores the AI-generated understanding of the problem.
-
-```python
-issue_summary
-issue_category
-affected_system
-severity
-bussiness_impact
-```
-
----
-
-## Classification
-
-Stores the decision made by the classifier.
-
-```python
-decision
-confidence
-reason
-```
-
-Possible values:
-
-```text
-USER_SOLVABLE
-ADMIN_REQUIRED
-NEED_MORE_INFO
-```
-
----
-
-## Clarification
-
-Used when additional information is required.
-
-```python
-needs_clarification
-clarification_questions
-clarification_answer
-classification_count
-```
-
----
-
-## Resolution
-
-Stores troubleshooting information for user-solvable issues.
-
-```python
-resolution_found
-solution_step
-knowledge_source
-estimation_resolution_time
+                    User
+                      │
+                      ▼
+             Analyse Issue
+                      │
+                      ▼
+             Classify Issue
+                      │
+      ┌───────────────┴───────────────┐
+      │                               │
+USER_SOLVABLE                 ADMIN_REQUIRED
+      │                               │
+      ▼                               ▼
+Knowledge Base                 Generate Ticket
+      │                               │
+Cache Hit?                            ▼
+      │                         Send Email
+      ▼                               │
+Generate Resolution                   ▼
+      │                         Final Report
+      └───────────────┬───────────────┘
+                      ▼
+                 Final Response
 ```
 
 ---
 
-## Ticket Information
+# 🔄 Workflow
 
-Stores information required for ticket generation.
+## Step 1
 
-```python
-ticket_required
-ticket_title
-ticket_description
-ticket_priority
-ticket_category
-ticket_id
-ticket_status
+User submits an issue.
+
+Example:
+
+```
+My application is showing HTTP 500 Internal Server Error.
 ```
 
 ---
 
-# Structured Output Schemas
+## Step 2
 
-To ensure predictable and validated outputs from the LLM, each node uses a dedicated Pydantic schema.
+The agent analyzes:
 
----
-
-## IssueAnalysisSchema
-
-Purpose:
-Extract structured issue information from the user's query.
-
-Output:
-
-```python
-issue_summary
-issue_category
-affected_system
-severity
-bussiness_impact
-```
+- Summary
+- Category
+- Severity
+- Business Impact
+- Affected System
 
 ---
 
-## ClassificationSchema
+## Step 3
 
-Purpose:
-Determine the next action for the workflow.
+The issue is classified as:
 
-Output:
-
-```python
-decision
-confidence
-reason
-```
-
-Decision Values:
-
-```text
-USER_SOLVABLE
-ADMIN_REQUIRED
-NEED_MORE_INFO
-```
+- USER_SOLVABLE
+- ADMIN_REQUIRED
+- NEED_MORE_INFO
 
 ---
 
-## ClarificationSchema
+## Step 4
 
-Purpose:
-Generate follow-up questions when the issue lacks sufficient detail.
+If required:
 
-Output:
+- Ask clarification questions
 
-```python
-needs_clarification
-clarification_questions
-```
+Example:
 
----
-
-## ResolutionSchema
-
-Purpose:
-Generate simple troubleshooting steps for user-solvable issues.
-
-Output:
-
-```python
-resolution_found
-solution_step
-knowledge_source
-estimation_resolution_time
-```
+- Which application?
+- When did the issue start?
+- Any error code?
 
 ---
 
-## TicketSchema
+## Step 5
 
-Purpose:
-Generate support ticket information for issues requiring administrator intervention.
+Search Knowledge Base
 
-Output:
+If the issue already exists:
 
-```python
-ticket_required
-ticket_title
-ticket_description
-ticket_priority
-ticket_category
-```
+- Return cached solution
+
+Otherwise:
+
+- Generate new solution using LLM
 
 ---
 
-## TicketResponseSchema
+## Step 6
 
-Purpose:
-Capture the response from the ticket creation system.
+If the issue cannot be solved by the user:
 
-Output:
-
-```python
-ticket_id
-ticket_status
-```
+- Create support ticket
+- Notify Admin Team
 
 ---
 
-# LangGraph Nodes
+## Step 7
 
-## 1. analyse_issue
-
-Purpose:
-
-* Understand the issue.
-* Identify category and severity.
-* Extract business impact.
-
-Schema Used:
-
-```python
-IssueAnalysisSchema
-```
-
-Updates State:
-
-```python
-issue_summary
-issue_category
-affected_system
-severity
-bussiness_impact
-```
+Return the final response to the user.
 
 ---
 
-## 2. classify_issue
+# 🧠 State Management
 
-Purpose:
+The workflow uses a centralized `SupportAgentState`.
 
-Determine the next workflow path.
+Important fields include:
 
-Schema Used:
+### User Information
 
-```python
-ClassificationSchema
-```
-
-Updates State:
-
-```python
-decision
-confidence
-reason
-```
+- user_name
+- user_email
+- user_issue
 
 ---
 
-## 3. ask_clarification
+### Issue Analysis
 
-Purpose:
+- issue_summary
+- issue_category
+- affected_system
+- severity
+- business_impact
 
-Ask follow-up questions when the issue is not clear.
+---
 
-Schema Used:
+### Classification
 
-```python
-ClarificationSchema
+- decision
+- confidence
+- reason
+
+---
+
+### Clarification
+
+- clarification_questions
+- clarification_answer
+
+---
+
+### Resolution
+
+- solution_step
+- knowledge_source
+- estimation_resolution_time
+
+---
+
+### Knowledge Base
+
+- knowledge_cache_hit
+
+---
+
+### Ticket Information
+
+- ticket_id
+- ticket_title
+- ticket_priority
+- ticket_category
+- ticket_status
+- ticket_email_sent
+
+---
+
+# 🛠 Tech Stack
+
+| Technology | Purpose |
+|------------|---------|
+| Python | Backend |
+| LangGraph | Workflow orchestration |
+| LangChain | LLM integration |
+| OpenAI GPT | Reasoning |
+| Pydantic | Structured Outputs |
+| SMTP | Email Notification |
+| JSON | Knowledge Base |
+| dotenv | Environment Variables |
+
+---
+
+# ⚙ Installation
+
+```bash
+git clone https://github.com/Rahul3998/AI-Support-Ticketing-Agent-LangGraph-.git
+
+cd IT-Support-Agent
 ```
 
-Updates State:
+Install dependencies
 
-```python
-needs_clarification
-clarification_questions
+```bash
+pip install -r requirements.txt
 ```
 
 ---
 
-## 4. generate_resolution
+# Environment Variables
 
-Purpose:
+Create a `.env`
 
-Provide user-friendly troubleshooting instructions.
+```env
+OPENAI_API_KEY=
 
-Schema Used:
-
-```python
-ResolutionSchema
-```
-
-Updates State:
-
-```python
-resolution_found
-solution_step
-knowledge_source
-estimation_resolution_time
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=
+SMTP_PASSWORD=
+SMTP_FROM=
+ADMIN_EMAIL=
 ```
 
 ---
 
-## 5. generate_ticket
+# ▶ Run
 
-Purpose:
-
-Prepare ticket information for admin-level issues.
-
-Schema Used:
-
-```python
-TicketSchema
-```
-
-Updates State:
-
-```python
-ticket_required
-ticket_title
-ticket_description
-ticket_priority
-ticket_category
+```bash
+python main.py
 ```
 
 ---
 
-## 6. final_report
+# 📈 Benefits
 
-Purpose:
+✅ Faster Issue Resolution
 
-Generate the final response shown to the user.
+✅ Lower Operational Cost
 
-Possible Outputs:
+✅ Reduced Manual Work
 
-### User Solvable
+✅ Consistent Troubleshooting
 
-```text
-Issue analyzed successfully.
+✅ Knowledge Reuse
 
-Please follow the suggested troubleshooting steps.
+✅ Automatic Ticket Creation
 
-Thank you for contacting support.
-```
+✅ Human-in-the-Loop Support
 
-### Admin Required
-
-```text
-Your issue requires administrator assistance.
-
-A support ticket has been generated.
-
-Ticket ID: INC-12345
-
-Thank you for contacting support.
-```
+✅ Enterprise Ready
 
 ---
 
-# Routing Logic
+# 🔮 Future Enhancements
 
-The workflow uses a router after issue classification.
-
-```python
-decision
-```
-
-Possible routes:
-
-```text
-USER_SOLVABLE  → generate_resolution
-ADMIN_REQUIRED → generate_ticket
-NEED_MORE_INFO → ask_clarification
-```
+- ServiceNow Integration
+- Jira Integration
+- Microsoft Teams Bot
+- Slack Bot
+- RAG-based Knowledge Base
+- Vector Database
+- Multi-language Support
+- Voice Assistant
+- Dashboard & Analytics
 
 ---
 
-# Clarification Loop
+# 👨‍💻 Author
 
-If the classifier determines that additional information is required:
+**Rahul Adagale**
 
-1. Clarification questions are generated.
-2. User provides responses.
-3. Issue is analyzed again.
-4. Classification is repeated.
-
-This continues until:
-
-* The issue becomes user-solvable.
-* The issue requires admin support.
-* Maximum clarification attempts are reached.
+AI Engineer | Python Developer | LangGraph Developer
 
 ---
 
-# Current Project Status
+# ⭐ If you like this project
 
-Completed:
-
-* State Design
-* Workflow Design
-* Node Identification
-* Routing Logic
-* Structured Output Schemas
-* LangGraph Structure Design
-* Conditional Routing Strategy
-
-Pending:
-
-* Node Implementations
-* Prompt Engineering
-* Ticket Creation Tool
-* Email Generation
-* Knowledge Base Integration
-* Database Persistence
-* Human-in-the-loop Support
-* Jira / ServiceNow Integration
-* Frontend Interface
-
----
-
-# Future Enhancements
-
-1. Ticket Auto Assignment
-2. Knowledge Base Search
-3. RAG-based Troubleshooting
-4. Email Notifications
-5. SLA Tracking
-6. Escalation Rules
-7. Multi-Agent Architecture
-8. Conversation History Persistence
-9. Analytics Dashboard
-10. Admin Review Workflow
-
----
-
-# Goal
-
-Create an intelligent support system that resolves simple issues automatically, gathers missing information when required, and raises tickets only when administrator involvement is necessary, thereby reducing support workload and improving user experience.
+Please consider giving the repository a ⭐ on GitHub.
