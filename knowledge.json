@@ -151,5 +151,56 @@
     "knowledge_source": "Basic knowledge of React installation procedures and Node.js requirements.",
     "estimation_resolution_time": "15-30 minutes",
     "saved_at": "2026-06-28T19:51:36"
+  },
+  {
+    "issue_category": "Installation",
+    "affected_system": "React App",
+    "issue_summary": "User is unable to install a React application.",
+    "solution_step": [
+      "Check your internet connection to make sure it's working.",
+      "Ensure you have Node.js installed on your computer by running 'node -v' in the command line.",
+      "Install the latest version of npm (Node Package Manager) by running 'npm install -g npm'.",
+      "Open your command line and navigate to the folder where you want to create your React app using 'cd [folder-path]'.",
+      "Run 'npx create-react-app my-app' to start creating the React app.",
+      "Once the installation finishes, navigate into your app folder by typing 'cd my-app'.",
+      "Run 'npm start' to start your React application."
+    ],
+    "knowledge_source": "React documentation on installation and setup",
+    "estimation_resolution_time": "15 minutes",
+    "saved_at": "2026-06-28T19:59:22"
+  },
+  {
+    "issue_category": "Application",
+    "affected_system": "Google Chrome",
+    "issue_summary": "Application is not opening properly with an error 'Host is binded' in the console.",
+    "solution_step": [
+      "Close the application completely.",
+      "Check if the application is still running in the background. If it is, end the task.",
+      "Restart your computer to reset the system.",
+      "Open the application again and see if it starts properly.",
+      "Check for any updates for the application and install them if available.",
+      "Try reinstalling the application if the problem persists.",
+      "Check your internet connection and ensure it is stable."
+    ],
+    "knowledge_source": "Common troubleshooting for application errors",
+    "estimation_resolution_time": "15-30 minutes",
+    "saved_at": "2026-06-28T20:15:13"
+  },
+  {
+    "issue_category": "Application",
+    "affected_system": "My Application",
+    "issue_summary": "Application is not functioning correctly, displaying 'Network Binded' error after troubleshooting steps attempted.",
+    "solution_step": [
+      "Close the application completely.",
+      "Restart your device.",
+      "Check your internet connection and ensure it is stable.",
+      "Open the application again after restarting.",
+      "If the error appears, try switching Wi-Fi off and using mobile data or vice versa.",
+      "Clear the application cache from the settings.",
+      "If the issue persists, consider reinstalling the application."
+    ],
+    "knowledge_source": "Common troubleshooting steps for application errors.",
+    "estimation_resolution_time": "15-30 minutes",
+    "saved_at": "2026-06-28T20:17:48"
   }
 ]

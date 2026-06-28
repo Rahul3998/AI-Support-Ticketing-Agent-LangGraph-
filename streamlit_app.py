@@ -124,13 +124,24 @@ st.markdown("""
 
   /* Info box */
   .info-box {
-    background: #f0f4ff;
-    border-left: 4px solid #4f6ef7;
-    border-radius: 0 8px 8px 0;
-    padding: 12px 16px;
-    font-size: 0.9rem;
-    color: #2d3a6b;
-    margin-bottom: 14px;
+      background: #f0f4ff;
+      border-left: 4px solid #4f6ef7;
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      font-size: 0.9rem;
+      color: #2d3a6b;
+      margin-bottom: 14px;
+  }
+  
+  [data-testid="stWidgetLabel"] label,
+  .stTextInput label,
+  .stTextArea label,
+  .stSelectbox label,
+  .stCheckbox label,
+  .stRadio label,
+  .stMarkdown,
+  label {
+      color: #1a1a2e !important;
   }
 </style>
 """, unsafe_allow_html=True)
@@ -409,8 +420,8 @@ def stage_result():
     <div class="card">
       <span class="step-badge">👤 Submitted by</span>
       <div style="display:flex; gap:24px; flex-wrap:wrap; margin-top:4px;">
-        <div><span style="color:#888;font-size:0.85rem;">Name</span><br><strong>{result.get("user_name","N/A")}</strong></div>
-        <div><span style="color:#888;font-size:0.85rem;">Email</span><br><strong>{result.get("user_email","N/A")}</strong></div>
+        <div><span style="color:#1a1a2e;font-size:0.85rem;">Name</span><br><strong style="color:#1a1a2e;">{result.get("user_name","N/A")}</strong></div>
+        <div><span style="color:#1a1a2e;font-size:0.85rem;">Email</span><br><strong style="color:#1a1a2e;">{result.get("user_email","N/A")}</strong></div>
       </div>
       <div style="margin-top:12px; background:#f9fafc; border-radius:8px; padding:10px 14px;">
         <div style="font-size:0.75rem; color:#888; text-transform:uppercase; letter-spacing:0.5px;">Issue</div>
@@ -433,25 +444,27 @@ def stage_result():
     questions = result.get("clarification_questions") or []
     answers   = result.get("clarification_answer") or []
     if questions:
-        qa_html = "".join(
-            f"""
-            <div class="ticket-row">
-              <span class="ticket-label" style="width:auto;min-width:0;flex:1;">
-                <strong>Q{i+1}:</strong> {q}
-              </span>
-            </div>
-            <div class="ticket-row" style="padding-left:16px; color:#555;">
-              → {answers[i] if i < len(answers) else "—"}
-            </div>
-            """
-            for i, q in enumerate(questions)
-        )
-        st.markdown(f"""
-        <div class="card">
+      st.markdown("""
+      <div class="card">
           <span class="step-badge">🗣️ Clarification Provided</span>
-          {qa_html}
-        </div>
-        """, unsafe_allow_html=True)
+      </div>
+      """, unsafe_allow_html=True)
+
+      for i, q in enumerate(questions):
+          answer = answers[i] if i < len(answers) else "—"
+
+          st.markdown(f"""
+          <div class="card" style="margin-top:-12px;">
+              <div class="ticket-row">
+                  <span class="ticket-label" style="width:auto;min-width:0;flex:1;">
+                      <strong>Q{i+1}:</strong> {q}
+                  </span>
+              </div>
+              <div class="ticket-row" style="padding-left:16px;color:#555;border:none;">
+                  → {answer}
+              </div>
+          </div>
+          """, unsafe_allow_html=True)
 
     # New issue button
     st.markdown("<br>", unsafe_allow_html=True)
