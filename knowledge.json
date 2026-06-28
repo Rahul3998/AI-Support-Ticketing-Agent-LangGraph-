@@ -1,0 +1,121 @@
+[
+  {
+    "issue_category": "Installation",
+    "affected_system": "Development Environment",
+    "issue_summary": "User needs guidance for installing React.",
+    "solution_step": [
+      "Make sure you have Node.js installed. You can download it from the official website: nodejs.org.",
+      "Open your command line tool (like Command Prompt on Windows or Terminal on macOS).",
+      "Check if Node.js and npm (Node Package Manager) are installed by typing 'node -v' and 'npm -v'. You should see version numbers.",
+      "To create a new React app, type 'npx create-react-app my-app' in the command line. Replace 'my-app' with your desired app name.",
+      "Once the installation is complete, change into your app's directory by typing 'cd my-app'.",
+      "Start your React app by typing 'npm start'. This will open your app in a web browser.",
+      "If everything was successful, you should see your React app running!"
+    ],
+    "knowledge_source": "Official React documentation on getting started with React",
+    "estimation_resolution_time": "10-15 minutes",
+    "saved_at": "2026-06-28T17:55:28"
+  },
+  {
+    "issue_category": "Installation",
+    "affected_system": "React",
+    "issue_summary": "User seeks guidance on how to install React for frontend development.",
+    "solution_step": [
+      "Open your computer's terminal or command prompt.",
+      "Make sure you have Node.js installed. You can check by typing 'node -v' and pressing Enter.",
+      "If Node.js is not installed, download it from the official website and follow the installation steps.",
+      "Once Node.js is installed, in the terminal, type 'npx create-react-app my-app' and press Enter (replace 'my-app' with your project name).",
+      "Wait for the installation to finish. This may take a few minutes.",
+      "After it's done, navigate to your project folder by typing 'cd my-app' in the terminal.",
+      "To start the React app, type 'npm start' and press Enter. Your React app should now be running in your web browser."
+    ],
+    "knowledge_source": "Official React documentation at reactjs.org",
+    "estimation_resolution_time": "15 minutes",
+    "saved_at": "2026-06-28T17:55:37"
+  },
+  {
+    "issue_category": "Application",
+    "affected_system": "Web application",
+    "issue_summary": "The web application is not opening due to a port conflict.",
+    "solution_step": [
+      "Check if the website is correctly spelled in the browser.",
+      "Clear your browser's cache and cookies.",
+      "Try refreshing the page by pressing F5 or the refresh button.",
+      "Check if another application is using the same web address or port. Close any conflicting apps.",
+      "Restart your computer to free up any busy ports.",
+      "Try accessing the application from a different browser or device.",
+      "Ensure your internet connection is stable. Reconnect if necessary."
+    ],
+    "knowledge_source": "Common network troubleshooting practices",
+    "estimation_resolution_time": "15 minutes",
+    "saved_at": "2026-06-28T17:57:45"
+  },
+  {
+    "issue_category": "Installation",
+    "affected_system": "Frontend Development Environment",
+    "issue_summary": "User needs guidance on installing React for frontend development.",
+    "solution_step": [
+      "Open your command line interface (Command Prompt, Terminal, etc.)",
+      "Install Node.js if you haven't yet. Download it from the Node.js website and follow the installation steps.",
+      "Once Node.js is installed, check if it's working by typing 'node -v' in the command line. You should see the version number.",
+      "Now, install the React app setup tool. Type 'npx create-react-app my-app' in the command line. Replace 'my-app' with your project name.",
+      "After it's done, navigate to your app directory by typing 'cd my-app'.",
+      "To start your React app, type 'npm start' in the command line. This will open your app in a web browser.",
+      "Congratulations! You have successfully installed React and started your first app."
+    ],
+    "knowledge_source": "Official React documentation on setting up a React app",
+    "estimation_resolution_time": "15 minutes",
+    "saved_at": "2026-06-28T18:03:33"
+  },
+  {
+    "issue_category": "Installation",
+    "affected_system": "React Development Environment",
+    "issue_summary": "User requests guidance to install React on their machine.",
+    "solution_step": [
+      "Open your command prompt or terminal.",
+      "Check if Node.js is installed by typing 'node -v'. If not, go to the Node.js website and download it.",
+      "Once Node.js is installed, type 'npm -v' in the terminal to check if npm is installed.",
+      "To create a new React app, type 'npx create-react-app my-app' and press enter. Replace 'my-app' with your desired app name.",
+      "Wait for the installation to complete. You'll see messages in the terminal.",
+      "Once done, navigate into your app folder by typing 'cd my-app'.",
+      "To start your React app, type 'npm start' and press enter. Your app should open in the web browser."
+    ],
+    "knowledge_source": "React documentation on getting started with create-react-app",
+    "estimation_resolution_time": "10-15 minutes",
+    "saved_at": "2026-06-28T18:11:45"
+  },
+  {
+    "issue_category": "Installation",
+    "affected_system": "User's machine",
+    "issue_summary": "User needs guidance to install React.",
+    "solution_step": [
+      "Make sure you have Node.js installed. You can download it from the official Node.js website.",
+      "Open your terminal or command prompt.",
+      "Run the command `npm install -g create-react-app` to install the React package.",
+      "Once the installation is complete, go to the folder where you want to create your React app.",
+      "Run the command `npx create-react-app my-app` to create a new React app (replace 'my-app' with your app name).",
+      "Navigate to the app folder by typing `cd my-app`.",
+      "Start your React app by running the command `npm start`. Your app will open in the browser."
+    ],
+    "knowledge_source": "React official installation guide",
+    "estimation_resolution_time": "15 minutes",
+    "saved_at": "2026-06-28T18:15:01"
+  },
+  {
+    "issue_category": "Installation",
+    "affected_system": "Personal Computer",
+    "issue_summary": "Unable to install Python",
+    "solution_step": [
+      "Check your internet connection to ensure it is working.",
+      "Visit the official Python website at python.org.",
+      "Navigate to the Downloads section.",
+      "Select the version of Python suitable for your operating system (Windows, macOS, Linux).",
+      "Click on the download link and wait for the file to download.",
+      "Once the download is complete, locate the file in your Downloads folder.",
+      "Double-click the installer file and follow the on-screen instructions to install Python."
+    ],
+    "knowledge_source": "Official Python installation guide on python.org.",
+    "estimation_resolution_time": "15 minutes",
+    "saved_at": "2026-06-28T18:48:36"
+  }
+]
