@@ -94,7 +94,7 @@ st.markdown("""
     font-size: 0.78rem; font-weight: 700;
     flex-shrink: 0;
   }
-  .step-text { font-size: 0.93rem; line-height: 1.5; padding-top: 3px; }
+  .step-text { color: #1a1a2e !important; font-size: 0.93rem; line-height: 1.5; padding-top: 3px; }
 
   /* Ticket info rows */
   .ticket-row {

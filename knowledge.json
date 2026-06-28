@@ -117,5 +117,39 @@
     "knowledge_source": "Official Python installation guide on python.org.",
     "estimation_resolution_time": "15 minutes",
     "saved_at": "2026-06-28T18:48:36"
+  },
+  {
+    "issue_category": "Installation",
+    "affected_system": "React application",
+    "issue_summary": "User is unable to install a React application.",
+    "solution_step": [
+      "Check your internet connection and make sure it's working.",
+      "Make sure you have Node.js installed on your computer. You can check by typing 'node -v' in your command prompt or terminal.",
+      "If Node.js is not installed, download it from the official website and install it.",
+      "Open a command prompt or terminal window.",
+      "Navigate to the folder where you want to create your React app by using 'cd' followed by the folder path.",
+      "Run the command 'npx create-react-app my-app' (replace 'my-app' with your desired app name).",
+      "Follow any prompts that appear in the terminal."
+    ],
+    "knowledge_source": "React documentation on installing projects",
+    "estimation_resolution_time": "10-20 minutes",
+    "saved_at": "2026-06-28T19:49:02"
+  },
+  {
+    "issue_category": "Installation",
+    "affected_system": "React application environment",
+    "issue_summary": "User is unable to install a React application.",
+    "solution_step": [
+      "Check if you have Node.js installed on your computer. If not, download and install it from the official website.",
+      "Open a command line interface (Command Prompt, Terminal, etc.).",
+      "Run the command `node -v` to check if Node.js is installed properly. You should see the version number.",
+      "Go to the folder where you want to create your React app.",
+      "Run the command `npx create-react-app my-app` (replace 'my-app' with your desired app name).",
+      "Wait for the installation process to finish. This may take a few minutes.",
+      "Once it's done, navigate into your app folder using `cd my-app`, then run `npm start` to launch your app."
+    ],
+    "knowledge_source": "Basic knowledge of React installation procedures and Node.js requirements.",
+    "estimation_resolution_time": "15-30 minutes",
+    "saved_at": "2026-06-28T19:51:36"
   }
 ]
